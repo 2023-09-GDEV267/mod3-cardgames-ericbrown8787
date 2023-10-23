@@ -21,15 +21,11 @@ public class CardProspector : Card
     // The SlotDef class stores information pulled in from the LayoutXML <slot>
     public SlotDef slotDef;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnMouseUpAsButton()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Call the CardClicked method of the Prospector Singleton
+        Prospector.S.CardClicked(this);
+        // Also call the base class version of this method
+        base.OnMouseUpAsButton();
     }
 }
