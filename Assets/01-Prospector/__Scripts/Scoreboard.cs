@@ -45,6 +45,7 @@ public class Scoreboard : MonoBehaviour
         {
             Debug.LogError("ERROR: Scoreboard.Awake(): S is already set!");
         }
+        canvasTrans = transform.parent;
     }
 
     private void FSCallback(FloatingScore fs)
