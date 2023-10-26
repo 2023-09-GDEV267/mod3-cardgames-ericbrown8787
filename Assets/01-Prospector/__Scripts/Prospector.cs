@@ -39,8 +39,9 @@ public class Prospector : MonoBehaviour {
 
 	void Awake(){
 		S = this;
-		
-	}
+        SetUpUITexts();
+
+    }
 
 	void SetUpUITexts()
 	{
@@ -79,7 +80,7 @@ public class Prospector : MonoBehaviour {
 	}
 
 	void Start() {
-        SetUpUITexts();
+       
         Scoreboard.S.score = ScoreManager.SCORE;
 		deck = GetComponent<Deck> ();
 		deck.InitDeck (deckXML.text);
