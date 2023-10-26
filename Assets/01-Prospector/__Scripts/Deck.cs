@@ -229,9 +229,19 @@ public class Deck : MonoBehaviour {
 			if (card.def.face != "") {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
-				
-				tS = GetFace(card.def.face+card.suit);
-				tSR.sprite = tS;
+				/*Debug.Log(card.def.face);*/
+				if (card.def.face != null && card.def.face.StartsWith("FaceCard"))
+				{
+				/*	Debug.Log(card.suit);*/
+                    tS = GetFace(card.def.face + card.suit);
+                }
+				else
+				{
+					tS = GetFace(card.suit);
+				}
+
+
+                tSR.sprite = tS;
 				tSR.sortingOrder = 1;
 				tGO.transform.parent=card.transform;
 				tGO.transform.localPosition = Vector3.zero;  // slap it smack dab in the middle
