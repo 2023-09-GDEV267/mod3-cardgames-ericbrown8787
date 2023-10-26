@@ -39,21 +39,25 @@ public class Prospector : MonoBehaviour {
 
 	void Awake(){
 		S = this;
-		SetUpUITexts();
+		
 	}
 
 	void SetUpUITexts()
 	{
+		Debug.Log(PlayerPrefs.GetInt("ProspectorHighScore"));
 		GameObject go = GameObject.Find("HighScore");
 		if (go != null)
 		{
 			highScoreText = go.GetComponent<TextMeshProUGUI>();
+			Debug.Log(go);
 		}
 		int highScore = ScoreManager.HIGH_SCORE;
+		Debug.Log("High Score in Prospecor: "+ highScore);
 		string hScore = "High Score: " + Utils.AddCommasToNumber(highScore);
-		go.GetComponent<TextMeshProUGUI>().text = hScore;
 
-		go = GameObject.Find("GameOver");
+        go.GetComponent<TextMeshProUGUI>().text = hScore;
+
+        go = GameObject.Find("GameOver");
 		if (go != null)
 		{
 			gameOverText = go.GetComponent<TextMeshProUGUI>();
@@ -75,7 +79,8 @@ public class Prospector : MonoBehaviour {
 	}
 
 	void Start() {
-		Scoreboard.S.score = ScoreManager.SCORE;
+        SetUpUITexts();
+        Scoreboard.S.score = ScoreManager.SCORE;
 		deck = GetComponent<Deck> ();
 		deck.InitDeck (deckXML.text);
 		Deck.Shuffle(ref deck.cards);
@@ -321,7 +326,7 @@ public class Prospector : MonoBehaviour {
 	void GameOver(bool won) {
 		int score = ScoreManager.SCORE;
 		if (fsRun != null) score += fsRun.score;
-	if (won)
+		if (won)
 		{
 			gameOverText.text = "Round Over";
 			roundResultText.text = "You won this round!\nRound Score: " + score;
@@ -335,7 +340,7 @@ public class Prospector : MonoBehaviour {
 			gameOverText.text = "Game Over";
 			if (ScoreManager.HIGH_SCORE <= score)
 			{
-				string str = "You got the high score!\nHigh score: " + score;
+				roundResultText.text = "You got the high score!\nHigh score: " + score;
 			}
 			else
 			{
@@ -343,7 +348,7 @@ public class Prospector : MonoBehaviour {
 			}
 			ShowResultsUI(true);
 /*			print("Game over. You lost. :(");*/
-            ScoreManager.EVENT(eScoreEvent.draw);
+            ScoreManager.EVENT(eScoreEvent.gameLoss);
             FloatingScoreHandler(eScoreEvent.gameLoss);
         }
 		Invoke("ReloadLevel", reloadDelay);

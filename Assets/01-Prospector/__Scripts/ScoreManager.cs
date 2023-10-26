@@ -39,6 +39,7 @@ public class ScoreManager : MonoBehaviour
         if (PlayerPrefs.HasKey("ProspectorHighScore"))
         {
             HIGH_SCORE = PlayerPrefs.GetInt("ProspectorHighScore");
+            Debug.Log("HIGH_SCORE in ScoreManager: " +HIGH_SCORE);
         }
 
         // Add the score from the last roung, which will be >0 if it was a win
@@ -94,6 +95,7 @@ public class ScoreManager : MonoBehaviour
                 if (HIGH_SCORE <= score)
                 {
                     print($"You got the high score! High Score: {score}");
+                    PlayerPrefs.SetInt("ProspectorHighScore", score);
                 }
                 else
                 {
@@ -110,16 +112,4 @@ public class ScoreManager : MonoBehaviour
     static public int SCORE { get { return S.score; } }
 
     static public int SCORE_RUN { get { return S.scoreRun; } }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
