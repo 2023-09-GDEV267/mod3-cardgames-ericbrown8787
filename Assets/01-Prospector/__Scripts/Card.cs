@@ -117,7 +117,13 @@ public class Decorator{
 [System.Serializable]
 public class CardDefinition{
 	public string	face;	//sprite to use for face cart
-	public int		rank;	// value from 1-13 (Ace-King)
+	public int		rank;   // value from 1-13 (Ace-King)
+
+	// Adding some additional fields to allow for moving and scaling card faces
+	public float faceX = 0f;
+	public float faceY = 0f;
+	public float faceScale = 1.0f;
+
 	public List<Decorator>	
 					pips = new List<Decorator>();  // Pips Used
 }

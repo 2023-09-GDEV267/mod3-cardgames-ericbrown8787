@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class Deck : MonoBehaviour {
 
@@ -123,7 +124,22 @@ public class Deck : MonoBehaviour {
 			// foramt is ##A, where ## in 11, 12, 13 and A is letter indicating suit
 			if (xCardDefs[i].HasAtt("face")){
 				cDef.face = xCardDefs[i].att ("face");
-			}
+				Debug.Log(xCardDefs[i].att("faceX"));
+
+				// Handling the additional attributes I added to handle moving and scaling card faces
+				if (xCardDefs[i].HasAtt("faceX"))
+				{
+                    cDef.faceX = float.Parse(xCardDefs[i].att("faceX"));
+                }
+                if (xCardDefs[i].HasAtt("faceY"))
+				{
+                    cDef.faceY = float.Parse(xCardDefs[i].att("faceY"));
+                }
+                if (xCardDefs[i].HasAtt("faceScale"))
+				{
+                    cDef.faceScale = float.Parse(xCardDefs[i].att("faceScale"));
+                }
+            }
 			cardDefs.Add (cDef);
 		} // for i < xCardDefs.Count
 	} // ReadDeck
@@ -205,46 +221,61 @@ public class Deck : MonoBehaviour {
 			
 			
 			//Add the pips
-			foreach(Decorator pip in card.def.pips) {
-				tGO = Instantiate(prefabSprite) as GameObject;
-				tGO.transform.parent = cgo.transform; 
-				tGO.transform.localPosition = pip.loc;
-				
-				if (pip.flip) {
-					tGO.transform.rotation = Quaternion.Euler(0,0,180);
-				}
-				
-				if (pip.scale != 1) {
-					tGO.transform.localScale = Vector3.one * pip.scale;
-				}
-				
-				tGO.name = "pip";
-				tSR = tGO.GetComponent<SpriteRenderer>();
-				tSR.sprite = dictSuits[card.suit];
-				tSR.sortingOrder = 1;
-				card.pipGOs.Add (tGO);
-			}
-			
-			//Handle face cards
-			if (card.def.face != "") {
+
+                foreach (Decorator pip in card.def.pips)
+                {
+                    tGO = Instantiate(prefabSprite) as GameObject;
+                    tGO.transform.parent = cgo.transform;
+                    tGO.transform.localPosition = pip.loc;
+
+                    if (pip.flip)
+                    {
+                        tGO.transform.rotation = Quaternion.Euler(0, 0, 180);
+                    }
+
+                    if (pip.scale != 1)
+                    {
+                        tGO.transform.localScale = Vector3.one * pip.scale;
+                    }
+
+                    tGO.name = "pip";
+                    tSR = tGO.GetComponent<SpriteRenderer>();
+                    tSR.sprite = dictSuits[card.suit];
+                    tSR.sortingOrder = 1;
+                    card.pipGOs.Add(tGO);
+                }
+
+         
+
+            //Handle face cards
+            if (card.def.face != "") {
 				tGO = Instantiate(prefabSprite) as GameObject;
 				tSR = tGO.GetComponent<SpriteRenderer>();
 				/*Debug.Log(card.def.face);*/
-				if (card.def.face != null && card.def.face.StartsWith("FaceCard"))
-				{
+
 				/*	Debug.Log(card.suit);*/
                     tS = GetFace(card.def.face + card.suit);
-                }
-				else
-				{
-					tS = GetFace(card.suit);
-				}
-
 
                 tSR.sprite = tS;
 				tSR.sortingOrder = 1;
 				tGO.transform.parent=card.transform;
-				tGO.transform.localPosition = Vector3.zero;  // slap it smack dab in the middle
+
+                tGO.transform.localPosition = Vector3.zero;  // slap it smack dab in the middle
+
+				// Applying additional fields added to Card defs to allow moving and scaling card faces
+                if (card.def.faceX!= 0f)
+				{
+					tGO.transform.localPosition =new Vector3(card.def.faceX, tGO.transform.localPosition.y, 0);
+				} 
+				if (card.def.faceY != 0f)
+                {
+                    tGO.transform.localPosition = new Vector3(tGO.transform.localPosition.x, card.def.faceY , 0);
+                }
+				if (card.def.faceScale != 1.0f)
+				{
+					tGO.transform.localScale = Vector3.one * card.def.faceScale;
+				}
+
 				tGO.name = "face";
 			}
 
@@ -269,6 +300,7 @@ public class Deck : MonoBehaviour {
 				return (tS);
 			}
 		}//foreach	
+
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
 
