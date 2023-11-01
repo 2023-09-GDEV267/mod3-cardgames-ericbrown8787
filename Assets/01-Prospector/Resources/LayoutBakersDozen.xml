@@ -1,0 +1,74 @@
+<xml>
+	<!-- This file holds info for laying out the Prospector card game. -->
+	
+	<!-- The multiplier is multiplied by the x and y attributes below. -->
+	<!-- This determines how loose or tight the layout is. --> 
+	<multiplier x="1.25" y="1.5" />
+	
+	<!-- In the XML below, id is the number of the card -->
+	<!-- x and y set position -->
+	<!-- faceup is 1 if the card is face-up -->
+	<!-- layer sets the depth layer so cards overlap properly -->
+	<!-- hiddenby is the ids of cards that keep a card face-down -->
+	
+	<!-- Layer0, the deepest cards. -->
+	<slot id="0" x="-5" y="2" faceup="1" layer="0" hiddenby="13" />
+	<slot id="1" x="-3"  y="2" faceup="1" layer="0" hiddenby="14" />
+	<slot id="2" x="-1"  y="2" faceup="1" layer="0" hiddenby="15" />
+	<slot id="3" x="1" y="2" faceup="1" layer="0" hiddenby="16" />
+	<slot id="4" x="3" y="2" faceup="1" layer="0" hiddenby="17" />
+	<slot id="5" x="5" y="2" faceup="1" layer="0" hiddenby="18" />
+	<slot id="6" x="7"  y="2" faceup="1" layer="0" hiddenby="19" />
+	<slot id="7" x="-4"  y="-2" faceup="1" layer="0" hiddenby="20" />
+	<slot id="8" x="-2"  y="-2" faceup="1" layer="0" hiddenby="21" />
+	<slot id="9"  x="0" y="-2" faceup="1" layer="0" hiddenby="22" />
+	<slot id="10" x="2" y="-2" faceup="1" layer="0" hiddenby="23" />
+	<slot id="11" x="4" y="-2" faceup="1" layer="0" hiddenby="24" />
+	<slot id="12" x="6" y="-2" faceup="1" layer="0" hiddenby="25" />
+	
+	
+	<slot id="13" x="-5"  y="2" faceup="1" layer="1" hiddenby="26" />
+	<slot id="14" x="-3"  y="2" faceup="1" layer="1" hiddenby="27" />
+	<slot id="15" x="-1"  y="2" faceup="1" layer="1" hiddenby="28" />
+	<slot id="16" x="1"  y="2" faceup="1" layer="1" hiddenby="29" />
+	<slot id="17" x="3"  y="2" faceup="1" layer="1" hiddenby="30" />
+	<slot id="18" x="5" y="2" faceup="1" layer="1" hiddenby="31"/>
+	<slot id="19" x="7" y="2" faceup="1" layer="1" hiddenby="32"/>
+	<slot id="20" x="-4" y="-2" faceup="1" layer="1" hiddenby="33"/>
+	<slot id="21" x="-2" y="-2" faceup="1" layer="1" hiddenby="34"/>
+	<slot id="22" x="0" y="-2" faceup="1" layer="1" hiddenby="35"/>
+	<slot id="23" x="2"  y="-2" faceup="1" layer="1" hiddenby="36"/>
+	<slot id="24" x="4"  y="-2" faceup="1" layer="1" hiddenby="37"/>
+	<slot id="25" x="6"  y="-2" faceup="1" layer="1" hiddenby="38"/>
+
+	
+	<slot id="26" x="-5"  y="2" faceup="1" layer="2" hiddenby="39" />
+	<slot id="27" x="-3"  y="2" faceup="1" layer="2" hiddenby="40" />
+	<slot id="28" x="-1"  y="2" faceup="1" layer="2" hiddenby="41" />
+	<slot id="29" x="1"  y="2" faceup="1" layer="2" hiddenby="42" />
+	<slot id="30" x="3"  y="2" faceup="1" layer="2" hiddenby="43" />
+	<slot id="31" x="5"  y="2" faceup="1" layer="2" hiddenby="44"/>
+	<slot id="32" x="7"  y="2" faceup="1" layer="2" hiddenby="45"/>
+	<slot id="33" x="-4"  y="-2" faceup="1" layer="2" hiddenby="46"/>
+	<slot id="34" x="-2" y="-2" faceup="1" layer="2" hiddenby="47"/>
+	<slot id="35" x="0" y="-2" faceup="1" layer="2" hiddenby="48"/>
+	<slot id="36" x="2"  y="-2" faceup="1" layer="2" hiddenby="49"/>
+	<slot id="37" x="4"  y="-2" faceup="1" layer="2" hiddenby="50"/>
+	<slot id="38" x="6"  y="-2" faceup="1" layer="2" hiddenby="51"/>
+
+	<slot id="39" x="-5"  y="2" faceup="1" layer="3"/>
+	<slot id="40" x="-3"  y="2" faceup="1" layer="3"/>
+	<slot id="41" x="-1"  y="2" faceup="1" layer="3"/>
+	<slot id="42" x="1"  y="2" faceup="1" layer="3"/>
+	<slot id="43" x="3"  y="2" faceup="1" layer="3"/>
+	<slot id="44" x="5"  y="2" faceup="1" layer="3"/>
+	<slot id="45" x="7"  y="2" faceup="1" layer="3"/>
+	<slot id="46" x="-4"  y="-2" faceup="1" layer="3"/>
+	<slot id="47" x="-2"  y="-2" faceup="1" layer="3"/>
+	<slot id="48" x="0"  y="-2" faceup="1" layer="3"/>
+	<slot id="49" x="2"  y="-2" faceup="1" layer="3"/>
+	<slot id="50" x="4"  y="-2" faceup="1" layer="3"/>
+	<slot id="51" x="6"  y="-2" faceup="1" layer="3"/>
+	
+</xml>
+	
