@@ -59,3 +59,18 @@ TagManager:
   - name: Draw
     uniqueID: 1747038845
     locked: 0
+  - name: Layer0
+    uniqueID: 3354135525
+    locked: 0
+  - name: Layer1
+    uniqueID: 3472592901
+    locked: 0
+  - name: Layer2
+    uniqueID: 4163482919
+    locked: 0
+  - name: Layer3
+    uniqueID: 3971481071
+    locked: 0
+  - name: Foundations
+    uniqueID: 2713704981
+    locked: 0
