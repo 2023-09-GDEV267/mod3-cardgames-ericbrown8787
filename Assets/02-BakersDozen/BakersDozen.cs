@@ -119,26 +119,33 @@ public class BakersDozen: MonoBehaviour {
 		// Folow the layout
 		foreach(SlotDef tSD in layout.slotDefs)
 		{
-			// Iterate through all SlotDefs in the layout.slotDefs as tSD
-			cp = Draw();
-			cp.faceUp= tSD.faceUp;
-			cp.transform.parent = layoutAnchor;
-			/*			cp.transform.localPosition = new Vector3(
-							layout.multiplier.x * tSD.x,
-							layout.multiplier.y * tSD.y,
-							-tSD.layerID);*/
+			if(tSD.type == "slot")
+			{
+                // Iterate through all SlotDefs in the layout.slotDefs as tSD
+                cp = Draw();
+                cp.faceUp = tSD.faceUp;
+                cp.transform.parent = layoutAnchor;
+                /*			cp.transform.localPosition = new Vector3(
+                                layout.multiplier.x * tSD.x,
+                                layout.multiplier.y * tSD.y,
+                                -tSD.layerID);*/
 
-			// Edited here to stagger stacks of cards so all suits/ranks are visible
-			cp.transform.localPosition = new Vector3(layout.multiplier.x * tSD.x, layout.multiplier.y * (tSD.y - .4f * tSD.layerID), -tSD.layerID);
-			// ^ Set the localPosition of the card based on SlotDef
-			cp.layoutID = tSD.id;
-			cp.slotDef= tSD;
+                // Edited here to stagger stacks of cards so all suits/ranks are visible
+                cp.transform.localPosition = new Vector3(layout.multiplier.x * tSD.x, layout.multiplier.y * (tSD.y - .4f * tSD.layerID), -tSD.layerID);
+                // ^ Set the localPosition of the card based on SlotDef
+                cp.layoutID = tSD.id;
+                cp.slotDef = tSD;
 
-			// CardProspectors in the tableau have the state CardState.tableau
-			cp.state = eCardState.tableau;
+                // CardProspectors in the tableau have the state CardState.tableau
+                cp.state = eCardState.tableau;
 
-			cp.SetSortingLayerName(tSD.layerName);
-			tableau.Add(cp); // Add this CardProspector to the List<> tableau
+                cp.SetSortingLayerName(tSD.layerName);
+                tableau.Add(cp); // Add this CardProspector to the List<> tableau
+            } else if (tSD.type == "foundation")
+			{
+
+			}
+
 
 		}
 
@@ -184,49 +191,49 @@ public class BakersDozen: MonoBehaviour {
 			cd.faceUp = faceUp; //Set the value on the card
 		}
 	}
+    /*
+        void MoveToDiscard(CardProspector cd)
+        {
+            // Set the state of the card to discard
+            cd.state = eCardState.discard;
+            discardPile.Add(cd); // Add it to the DiscardPile list
+            cd.transform.parent = layoutAnchor; //Update its transform parent
 
-	void MoveToDiscard(CardProspector cd)
-	{
-		// Set the state of the card to discard
-		cd.state = eCardState.discard;
-		discardPile.Add(cd); // Add it to the DiscardPile list
-		cd.transform.parent = layoutAnchor; //Update its transform parent
+            // Position this card in the discard pile
+            cd.transform.localPosition = new Vector3(
+                layout.multiplier.x * layout.discardPile.x,
+                layout.multiplier.y * layout.discardPile.y,
+                -layout.discardPile.layerID + 0.5f);
 
-		// Position this card in the discard pile
-		cd.transform.localPosition = new Vector3(
-			layout.multiplier.x * layout.discardPile.x,
-			layout.multiplier.y * layout.discardPile.y,
-			-layout.discardPile.layerID + 0.5f);
+            cd.faceUp = true;
+            // Place it on top of the pile for sorting
+            cd.SetSortingLayerName(layout.discardPile.layerName);
+            cd.SetSortOrder(-100 + discardPile.Count);
+        }
+    */
+    /*	void MoveToTarget(CardProspector cd)
+        {
+            // If there is currently a target card, move it to the discard pile
+            if (target!= null) MoveToDiscard(target);
+            target= cd; // cd is the new target
+            cd.state = eCardState.target;
+            cd.transform.parent = layoutAnchor;
 
-		cd.faceUp = true;
-		// Place it on top of the pile for sorting
-		cd.SetSortingLayerName(layout.discardPile.layerName);
-		cd.SetSortOrder(-100 + discardPile.Count);
-	}
+            //Move to the target position
+            cd.transform.localPosition = new Vector3(
+                layout.multiplier.x * layout.discardPile.x,
+                layout.multiplier.y * layout.discardPile.y,
+                -layout.discardPile.layerID);
 
-	void MoveToTarget(CardProspector cd)
-	{
-		// If there is currently a target card, move it to the discard pile
-		if (target!= null) MoveToDiscard(target);
-		target= cd; // cd is the new target
-		cd.state = eCardState.target;
-		cd.transform.parent = layoutAnchor;
+            cd.faceUp = true; // Make it face-up
+                              // Set the depth sorting
+            cd.SetSortingLayerName(layout.discardPile.layerName);
+            cd.SetSortOrder(0);
+        }
 
-		//Move to the target position
-		cd.transform.localPosition = new Vector3(
-			layout.multiplier.x * layout.discardPile.x,
-			layout.multiplier.y * layout.discardPile.y,
-			-layout.discardPile.layerID);
-
-		cd.faceUp = true; // Make it face-up
-						  // Set the depth sorting
-		cd.SetSortingLayerName(layout.discardPile.layerName);
-		cd.SetSortOrder(0);
-	}
-
-	// Arranges all cards on the draw pile to show how many are left
-
-	void UpdateDrawPile()
+        // Arranges all cards on the draw pile to show how many are left
+    */
+    void UpdateDrawPile()
 	{
 		CardProspector cd;
 		// Go through all the cards of the drawpile
@@ -249,7 +256,7 @@ public class BakersDozen: MonoBehaviour {
 		}
 	}
 
-	public void CardClicked(CardProspector cd)
+/*	public void CardClicked(CardProspector cd)
 	{
 		switch(cd.state)
 		{
@@ -292,7 +299,7 @@ public class BakersDozen: MonoBehaviour {
 		}
 		// Check to see whether game is over or not
 		CheckForGameOver();
-	}
+	}*/
 
 	void CheckForGameOver()
 	{

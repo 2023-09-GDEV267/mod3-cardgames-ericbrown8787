@@ -23,10 +23,11 @@ public class LayoutBakersDozen : MonoBehaviour
     //SlotDef references
     public List<SlotDef> slotDefs;
     public SlotDef drawPile;
-    public SlotDef discardPile;
+    public List<SlotDef> foundation;
+/*    public SlotDef discardPile;*/
 
     // This holds all of the possible names for the layers set by layerID
-    public string[] sortingLayerNames = new string[] {"Row0","Row1","Row2","Row3","Discard","Draw"};
+    public string[] sortingLayerNames = new string[] {"Row0","Row1","Row2","Row3","Foundation","Draw"};
 
     public void ReadLayout(string xmlText)
     {
@@ -84,10 +85,15 @@ public class LayoutBakersDozen : MonoBehaviour
                     tSD.stagger.x = float.Parse(slotsX[i].att("xstagger"));
                     drawPile = tSD;
                     break;
+                /*
+                                case "discardpile":
+                                    discardPile= tSD;
+                                    break;*/
 
-                case "discardpile":
-                    discardPile= tSD;
+                case "foundation":
+                    foundation.Add(tSD);
                     break;
+
             }
         }
     }

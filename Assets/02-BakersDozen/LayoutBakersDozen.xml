@@ -69,6 +69,12 @@
 	<slot id="49" x="0"  y="-2" faceup="1" layer="3"/>
 	<slot id="50" x="2"  y="-2" faceup="1" layer="3"/>
 	<slot id="51" x="4"  y="-2" faceup="1" layer="3"/>
+
+	<slot type="foundation" x="7" y="1" layer="5"/>
+	<slot type="foundation" x="7" y="3" layer="5"/>
+	<slot type="foundation" x="7" y="5" layer="5"/>
+	<slot type="foundation" x="7" y="7" layer="5"/>
+	
 	
 </xml>
 	
