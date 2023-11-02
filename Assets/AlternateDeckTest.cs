@@ -23,7 +23,7 @@ public class AlternateDeckTest : MonoBehaviour
     {
         deck = GetComponent<Deck>();
         deck.InitDeck(deckXML.text);
-        Card c;
+/*        Card c;*/
         /*        for (int cNum = 0; cNum < deck.cards.Count; cNum++)
                 {
                     c = deck.cards[cNum];

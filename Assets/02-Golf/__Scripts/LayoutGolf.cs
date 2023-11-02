@@ -15,7 +15,7 @@ using UnityEngine;
     public string type = "slot";
     public Vector2 stagger;
 }*/
-public class LayoutBakersDozen : MonoBehaviour
+public class LayoutGolf : MonoBehaviour
 {
     public PT_XMLReader xmlr;
     public PT_XMLHashtable xml;
@@ -23,11 +23,10 @@ public class LayoutBakersDozen : MonoBehaviour
     //SlotDef references
     public List<SlotDef> slotDefs;
     public SlotDef drawPile;
-    public List<SlotDef> foundation;
-/*    public SlotDef discardPile;*/
+    public SlotDef discardPile;
 
     // This holds all of the possible names for the layers set by layerID
-    public string[] sortingLayerNames = new string[] {"Row0","Row1","Row2","Row3","Discard", "Draw","Foundation" };
+    public string[] sortingLayerNames = new string[] {"Row0","Row1","Row2","Row3", "Discard", "Draw" };
 
     public void ReadLayout(string xmlText)
     {
@@ -87,14 +86,22 @@ public class LayoutBakersDozen : MonoBehaviour
                     break;
 
                 case "discardpile":
-/*                    discardPile = tSD;*/
+                    discardPile= tSD;
                     break;
-
-                case "foundation":
-                    foundation.Add(tSD);
-                    break;
-
             }
         }
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
