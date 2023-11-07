@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class Golf: MonoBehaviour {
 
@@ -102,10 +103,10 @@ public class Golf: MonoBehaviour {
 	CardGolf Draw()
 	{
 		CardGolf cd = drawPile[0];
-        Debug.Log($"Drawn card before remove: {cd}");
+/*        Debug.Log($"Drawn card before remove: {cd}");*/
         drawPile.RemoveAt(0);
-        Debug.Log($"Drawn card after remove: {cd}");
-        Debug.Log($"drawPile[0]: {drawPile[0]}");
+/*        Debug.Log($"Drawn card after remove: {cd}");
+        Debug.Log($"drawPile[0]: {drawPile[0]}");*/
 		return cd;
 
 	}
@@ -339,8 +340,18 @@ public class Golf: MonoBehaviour {
 		{
 			if (AdjacentRank(cd, target))
 			{
-				// If there is still a valid play, the game's not over
-				return;
+				bool covered = false;
+                foreach (CardGolf cover in cd.hiddenBy)
+                {
+                    // Checking whether the card is covered
+                    if (cover.state == eCardGolfState.tableau)
+					{
+						covered = true;
+                    }
+                }
+				if (!covered) return;
+/*                // If there is still a valid play, the game's not over
+                return;*/
 			}
 		}
 
