@@ -180,7 +180,7 @@ public class Golf: MonoBehaviour {
     }
 
 	// This turns cards in the mine face up or face down
-	void SetTableauFaces()
+/*	void SetTableauFaces()
 	{
 		foreach (CardGolf cd in tableau)
 		{
@@ -195,7 +195,7 @@ public class Golf: MonoBehaviour {
 			}
 			cd.faceUp = faceUp; //Set the value on the card
 		}
-	}
+	}*/
 
 	void MoveToDiscard(CardGolf cd)
 	{
@@ -263,45 +263,58 @@ public class Golf: MonoBehaviour {
 
 	public void CardClicked(CardGolf cd)
 	{
-		switch(cd.state)
+		bool clickable = true;
+        foreach (CardGolf cover in cd.hiddenBy)
+        {
+			// Checking whether the card is covered
+            if (cover.state == eCardGolfState.tableau)
+            {
+                clickable = false;
+            }
+        }
+		if (clickable)
 		{
-			case eCardGolfState.target:
-				break;
+            switch (cd.state)
+            {
+                case eCardGolfState.target:
+                    break;
 
-			case eCardGolfState.drawpile:
-				// Clicking any card in the drawpile will draw the next card
-				MoveToDiscard(target); //Moves the target to the discard pile
-				MoveToTarget(Draw());// Moves the next drawn card to the target
-				UpdateDrawPile(); // Restacks the drawpile
-				ScoreManager.EVENT(eScoreEvent.draw);
-				FloatingScoreHandler(eScoreEvent.draw);
-				break;
+                case eCardGolfState.drawpile:
+                    // Clicking any card in the drawpile will draw the next card
+                    MoveToDiscard(target); //Moves the target to the discard pile
+                    MoveToTarget(Draw());// Moves the next drawn card to the target
+                    UpdateDrawPile(); // Restacks the drawpile
+                    ScoreManager.EVENT(eScoreEvent.draw);
+                    FloatingScoreHandler(eScoreEvent.draw);
+                    break;
 
-			case eCardGolfState.tableau:
-				// Clicking a card in the tableau will check if it's a valid play
-				bool validMatch = true;
-				if (!cd.faceUp)
-				{
-					// If the card is face down, it's not valid
-					validMatch= false;
-				}
-				if (!AdjacentRank(cd, target))
-				{
-					// If it's not an adjacent rank, it's not valid
-					validMatch = false;	
-				}
-				if (!validMatch)
-				{
-					return;// return if not valid
-				}
-				// If we got here, it's a valid card
-				tableau.Remove(cd);
-				MoveToTarget(cd);
-				SetTableauFaces();
-                ScoreManager.EVENT(eScoreEvent.mine);
-				FloatingScoreHandler(eScoreEvent.mine);
-                break;	
-		}
+                case eCardGolfState.tableau:
+                    // Clicking a card in the tableau will check if it's a valid play
+                    bool validMatch = true;
+                    if (!cd.faceUp)
+                    {
+                        // If the card is face down, it's not valid
+                        validMatch = false;
+                    }
+                    if (!AdjacentRank(cd, target))
+                    {
+                        // If it's not an adjacent rank, it's not valid
+                        validMatch = false;
+                    }
+                    if (!validMatch)
+                    {
+                        return;// return if not valid
+                    }
+                    // If we got here, it's a valid card
+                    tableau.Remove(cd);
+                    MoveToTarget(cd);
+                    /*				SetTableauFaces();*/
+                    ScoreManager.EVENT(eScoreEvent.mine);
+                    FloatingScoreHandler(eScoreEvent.mine);
+                    break;
+            }
+        }
+
 		// Check to see whether game is over or not
 		CheckForGameOver();
 	}
@@ -368,8 +381,8 @@ public class Golf: MonoBehaviour {
 	}
 
 	public bool AdjacentRank(CardGolf c0, Card c1) {
-		// If either card is face-down, it's not adjacent
-		if (!c0.faceUp||!c1.faceUp) return false;
+/*		// If either card is face-down, it's not adjacent
+		if (!c0.faceUp||!c1.faceUp) return false;*/
 
 		// If they are 1 apart they are adjacent
 		if (Mathf.Abs(c0.rank - c1.rank) == 1)
@@ -377,7 +390,7 @@ public class Golf: MonoBehaviour {
 			return true;
 		}
 
-		// If one is Ace and the other is king, they are adjacent
+/*		// If one is Ace and the other is king, they are adjacent
 		if (c0.rank == 1 && c1.rank == 13) 
 		{
 			return true;
@@ -386,7 +399,7 @@ public class Golf: MonoBehaviour {
 		if (c0.rank == 13 && c1.rank == 1)
 		{
 			return true;
-		}
+		}*/
 
 		return false;
     }
