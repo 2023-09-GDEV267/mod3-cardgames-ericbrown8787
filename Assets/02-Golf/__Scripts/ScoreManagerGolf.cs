@@ -19,7 +19,7 @@ public class ScoreManagerGolf : MonoBehaviour
     static public int SCORE_FROM_PREV_ROUND = 0;
     static public int HIGH_SCORE = 0;
 
-    [Header("Set Dyunamically")]
+    [Header("Set Dynamically")]
     // Fields to track the score info
     public int chain = 0;
     public int scoreRun = 0;
@@ -32,13 +32,13 @@ public class ScoreManagerGolf : MonoBehaviour
             S = this;
         } else
         {
-            Debug.Log("ERROR: ScoreManager.Awake(): S is already set");
+            Debug.Log("ERROR: ScoreManagerGolf.Awake(): S is already set");
         }
 
         // Check for a high score in playerprefs
-        if (PlayerPrefs.HasKey("ProspectorHighScore"))
+        if (PlayerPrefs.HasKey("GolfHighScore"))
         {
-            HIGH_SCORE = PlayerPrefs.GetInt("ProspectorHighScore");
+            HIGH_SCORE = PlayerPrefs.GetInt("GolfHighScore");
             Debug.Log("HIGH_SCORE in ScoreManager: " +HIGH_SCORE);
         }
 
@@ -49,7 +49,7 @@ public class ScoreManagerGolf : MonoBehaviour
     }
 
 
-    static public void EVENT(eScoreEvent evt)
+    static public void EVENT(eGolfScoreEvent evt)
     {
         try
         {
@@ -61,20 +61,20 @@ public class ScoreManagerGolf : MonoBehaviour
         }
     }
 
-    void Event(eScoreEvent evt)
+    void Event(eGolfScoreEvent evt)
     {
         switch (evt)
         {
             // Same things need to happen whether it's a draw, a win or a loss
-            case eScoreEvent.draw: //drawing a card
-            case eScoreEvent.gameWin: // Won the round
-            case eScoreEvent.gameLoss: // Lost the round
+            case eGolfScoreEvent.draw: //drawing a card
+            case eGolfScoreEvent.gameWin: // Won the round
+            case eGolfScoreEvent.gameLoss: // Lost the round
                 chain = 0;//Remove the mine card
                 score += scoreRun; //increase the score chain
                 scoreRun = 0; //add score for this card to run
                 break;
 
-            case eScoreEvent.mine: // Remove a mine card
+            case eGolfScoreEvent.mine: // Remove a mine card
                 chain++; // Increase the score chain
                 scoreRun += chain; // Add score for this card to run
                 break;
@@ -83,19 +83,19 @@ public class ScoreManagerGolf : MonoBehaviour
         //This second switch statement handles round wins and losses
         switch (evt)
         {
-            case eScoreEvent.gameWin:
+            case eGolfScoreEvent.gameWin:
                 // If it's a win, add the score to the next round
                 // Static fields are not reset by SceneManager.LoadScene()
                 SCORE_FROM_PREV_ROUND = score;
                 print($"You won this round! Round Score: {score}");
                 break;
 
-            case eScoreEvent.gameLoss:
+            case eGolfScoreEvent.gameLoss:
                 // If it's a loss, check against the high score
                 if (HIGH_SCORE <= score)
                 {
                     print($"You got the high score! High Score: {score}");
-                    PlayerPrefs.SetInt("ProspectorHighScore", score);
+                    PlayerPrefs.SetInt("GolfHighScore", score);
                 }
                 else
                 {

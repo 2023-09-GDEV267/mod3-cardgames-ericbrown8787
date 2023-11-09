@@ -251,8 +251,8 @@ public class Golf: MonoBehaviour {
 			// Position it correctly with the layout.drawPile.stagger
 			Vector2 dpStagger = layout.drawPile.stagger;
 			cd.transform.localPosition = new Vector3(
-							layout.multiplier.x * layout.drawPile.x,
-			layout.multiplier.y * layout.drawPile.y,
+							layout.multiplier.x * (layout.drawPile.x + i*dpStagger.x),
+			layout.multiplier.y * (layout.drawPile.y + i*dpStagger.y),
 			-layout.drawPile.layerID + 0.1f * i);
 			cd.faceUp = false; // make them all face-down
 			cd.state = eCardGolfState.drawpile;
@@ -285,8 +285,8 @@ public class Golf: MonoBehaviour {
                     MoveToDiscard(target); //Moves the target to the discard pile
                     MoveToTarget(Draw());// Moves the next drawn card to the target
                     UpdateDrawPile(); // Restacks the drawpile
-                    ScoreManagerGolf.EVENT(eScoreEvent.draw);
-                    FloatingScoreHandler(eScoreEvent.draw);
+                    ScoreManagerGolf.EVENT(eGolfScoreEvent.draw);
+                    FloatingScoreHandler(eGolfScoreEvent.draw);
                     break;
 
                 case eCardGolfState.tableau:
@@ -310,8 +310,8 @@ public class Golf: MonoBehaviour {
                     tableau.Remove(cd);
                     MoveToTarget(cd);
                     /*				SetTableauFaces();*/
-                    ScoreManagerGolf.EVENT(eScoreEvent.mine);
-                    FloatingScoreHandler(eScoreEvent.mine);
+                    ScoreManagerGolf.EVENT(eGolfScoreEvent.mine);
+                    FloatingScoreHandler(eGolfScoreEvent.mine);
                     break;
             }
         }
@@ -369,8 +369,8 @@ public class Golf: MonoBehaviour {
 			roundResultText.text = "You won this round!\nRound Score: " + score;
 			ShowResultsUI(true);
 /*			print("Game over. You won! :)");*/
-            ScoreManagerGolf.EVENT(eScoreEvent.gameWin);
-			FloatingScoreHandler(eScoreEvent.gameWin);
+            ScoreManagerGolf.EVENT(eGolfScoreEvent.gameWin);
+			FloatingScoreHandler(eGolfScoreEvent.gameWin);
         }
         else
 		{
@@ -385,8 +385,8 @@ public class Golf: MonoBehaviour {
 			}
 			ShowResultsUI(true);
 /*			print("Game over. You lost. :(");*/
-            ScoreManagerGolf.EVENT(eScoreEvent.gameLoss);
-            FloatingScoreHandler(eScoreEvent.gameLoss);
+            ScoreManagerGolf.EVENT(eGolfScoreEvent.gameLoss);
+            FloatingScoreHandler(eGolfScoreEvent.gameLoss);
         }
 		Invoke("ReloadLevel", reloadDelay);
 	}
@@ -416,17 +416,17 @@ public class Golf: MonoBehaviour {
     }
 	void ReloadLevel()
 	{
-		SceneManager.LoadScene("__Prospector");
+		SceneManager.LoadScene("__Golf");
 	}
 	// Handle floatingscore movement
-	void FloatingScoreHandler(eScoreEvent evt)
+	void FloatingScoreHandler(eGolfScoreEvent evt)
 	{
 		List<Vector2> fsPts;
 		switch (evt)
 		{
-			case eScoreEvent.draw:
-			case eScoreEvent.gameWin:
-			case eScoreEvent.gameLoss:
+			case eGolfScoreEvent.draw:
+			case eGolfScoreEvent.gameWin:
+			case eGolfScoreEvent.gameLoss:
 				if (fsRun != null)
 				{
 					// Create points for the bezier curve
@@ -442,7 +442,7 @@ public class Golf: MonoBehaviour {
 
                 }
 				break;
-			case eScoreEvent.mine:
+			case eGolfScoreEvent.mine:
 				FloatingScore fs;
 				Vector2 p0 = Input.mousePosition;
 				p0.x /= Screen.width;

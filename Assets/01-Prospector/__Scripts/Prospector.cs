@@ -236,11 +236,11 @@ public class Prospector : MonoBehaviour {
 
 			// Position it correctly with the layout.drawPile.stagger
 			Vector2 dpStagger = layout.drawPile.stagger;
-			cd.transform.localPosition = new Vector3(
-							layout.multiplier.x * layout.drawPile.x,
-			layout.multiplier.y * layout.drawPile.y,
-			-layout.drawPile.layerID + 0.1f * i);
-			cd.faceUp = false; // make them all face-down
+            cd.transform.localPosition = new Vector3(
+                            layout.multiplier.x * (layout.drawPile.x + i * dpStagger.x),
+            layout.multiplier.y * (layout.drawPile.y + i * dpStagger.y),
+            -layout.drawPile.layerID + 0.1f * i);
+            cd.faceUp = false; // make them all face-down
 			cd.state = eCardState.drawpile;
 			//Set dept sorting
 			cd.SetSortingLayerName(layout.drawPile.layerName);
