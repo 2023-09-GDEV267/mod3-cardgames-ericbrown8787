@@ -86,7 +86,8 @@ public class LayoutGolf : MonoBehaviour
                     break;
 
                 case "discardpile":
-                    discardPile= tSD;
+                    tSD.stagger.x = float.Parse(slotsX[i].att("xstagger"));
+                    discardPile = tSD;
                     break;
             }
         }

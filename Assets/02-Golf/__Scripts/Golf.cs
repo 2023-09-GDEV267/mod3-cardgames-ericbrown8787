@@ -205,10 +205,13 @@ public class Golf: MonoBehaviour {
 		discardPile.Add(cd); // Add it to the DiscardPile list
 		cd.transform.parent = layoutAnchor; //Update its transform parent
 
-		// Position this card in the discard pile
-		cd.transform.localPosition = new Vector3(
-			layout.multiplier.x * layout.discardPile.x,
-			layout.multiplier.y * layout.discardPile.y,
+        Vector2 discardStagger = layout.discardPile.stagger;
+		Debug.Log("Discard stagger" + discardStagger.x);
+
+        // Position this card in the discard pile
+        cd.transform.localPosition = new Vector3(
+			layout.multiplier.x * (layout.discardPile.x + discardPile.Count * discardStagger.x),
+			layout.multiplier.y * (layout.discardPile.y + discardPile.Count * discardStagger.y),
 			-layout.discardPile.layerID + 0.5f);
 
 		cd.faceUp = true;
@@ -224,6 +227,7 @@ public class Golf: MonoBehaviour {
 		target= cd; // cd is the new target
 		cd.state = eCardGolfState.target;
 		cd.transform.parent = layoutAnchor;
+
 
 		//Move to the target position
 		cd.transform.localPosition = new Vector3(
