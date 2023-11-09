@@ -363,7 +363,7 @@ public class Golf: MonoBehaviour {
 		GameOver(false);
 	}
 
-	void GameOver(bool won) {
+	public void GameOver(bool won) {
 		int score = ScoreManagerGolf.SCORE;
 		if (fsRun != null) score += fsRun.score;
 		if (won)
