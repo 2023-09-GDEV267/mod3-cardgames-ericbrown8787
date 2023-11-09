@@ -40,7 +40,6 @@ public class Golf: MonoBehaviour {
 	void Awake(){
 		S = this;
         SetUpUITexts();
-
     }
 
 	void SetUpUITexts()
@@ -68,9 +67,7 @@ public class Golf: MonoBehaviour {
         {
             roundResultText = go.GetComponent<TextMeshProUGUI>();
         }
-
 		ShowResultsUI(false);
-
     }
 
 	void ShowResultsUI(bool show)
@@ -79,36 +76,21 @@ public class Golf: MonoBehaviour {
 		roundResultText.gameObject.SetActive(show);
 	}
 
-	void Start() {
-       
+	void Start() {   
         Scoreboard.S.score = ScoreManagerGolf.SCORE;
 		deck = GetComponent<Deck> ();
 		deck.InitDeck (deckXML.text);
 		Deck.Shuffle(ref deck.cards);
-		/*		Card c;
-				for (int cNum = 0; cNum < deck.cards.Count; cNum++)
-				{
-					c = deck.cards[cNum];
-
-					c.transform.localPosition = new Vector3((cNum%13)*3, cNum/13*4,0f);
-
-				}*/
-
 		layout = GetComponent<LayoutGolf> ();
 		layout.ReadLayout(layoutXML.text);
-/*		Debug.Log(deck.cards);*/
 		drawPile = ConvertListCardsToListCardGolfs(deck.cards);
 		LayoutGame();
 	}
 	CardGolf Draw()
 	{
 		CardGolf cd = drawPile[0];
-/*        Debug.Log($"Drawn card before remove: {cd}");*/
         drawPile.RemoveAt(0);
-/*        Debug.Log($"Drawn card after remove: {cd}");
-        Debug.Log($"drawPile[0]: {drawPile[0]}");*/
 		return cd;
-
 	}
 	void LayoutGame()
 	{
@@ -172,31 +154,11 @@ public class Golf: MonoBehaviour {
 	{
 		foreach (CardGolf tempCardGolf in tableau)
 		{
-
 			// Search through all cards in the tableau list<>
 			if (tempCardGolf.layoutID == layoutID) return tempCardGolf;
-			
 		}
         return (null);
     }
-
-	// This turns cards in the mine face up or face down
-/*	void SetTableauFaces()
-	{
-		foreach (CardGolf cd in tableau)
-		{
-			bool faceUp = true; // Assumes the card will be face up
-			foreach(CardGolf cover in cd.hiddenBy)
-			{
-				// If either of the covering cards are in the tableau
-				if (cover.state == eCardGolfState.tableau)
-				{
-					faceUp = false;
-				}
-			}
-			cd.faceUp = faceUp; //Set the value on the card
-		}
-	}*/
 
 	void MoveToDiscard(CardGolf cd)
 	{
@@ -240,8 +202,6 @@ public class Golf: MonoBehaviour {
 		cd.SetSortOrder(0);
 	}
 
-	// Arranges all cards on the draw pile to show how many are left
-
 	void UpdateDrawPile()
 	{
 		CardGolf cd;
@@ -259,7 +219,7 @@ public class Golf: MonoBehaviour {
 			-layout.drawPile.layerID + 0.1f * i);
 			cd.faceUp = false; // make them all face-down
 			cd.state = eCardGolfState.drawpile;
-			//Set dept sorting
+			//Set depth sorting
 			cd.SetSortingLayerName(layout.drawPile.layerName);
 			cd.SetSortOrder(-10*i);
 		}
@@ -371,7 +331,6 @@ public class Golf: MonoBehaviour {
 			gameOverText.text = "Round Over";
 			roundResultText.text = "You won this round!\nRound Score: " + score;
 			ShowResultsUI(true);
-/*			print("Game over. You won! :)");*/
             ScoreManagerGolf.EVENT(eGolfScoreEvent.gameWin);
 			FloatingScoreHandler(eGolfScoreEvent.gameWin);
         }
@@ -387,7 +346,6 @@ public class Golf: MonoBehaviour {
 				roundResultText.text = "Your final score was: " + score;
 			}
 			ShowResultsUI(true);
-/*			print("Game over. You lost. :(");*/
             ScoreManagerGolf.EVENT(eGolfScoreEvent.gameLoss);
             FloatingScoreHandler(eGolfScoreEvent.gameLoss);
         }
@@ -395,25 +353,12 @@ public class Golf: MonoBehaviour {
 	}
 
 	public bool AdjacentRank(CardGolf c0, Card c1) {
-/*		// If either card is face-down, it's not adjacent
-		if (!c0.faceUp||!c1.faceUp) return false;*/
 
 		// If they are 1 apart they are adjacent
 		if (Mathf.Abs(c0.rank - c1.rank) == 1)
 		{
 			return true;
 		}
-
-/*		// If one is Ace and the other is king, they are adjacent
-		if (c0.rank == 1 && c1.rank == 13) 
-		{
-			return true;
-		}
-
-		if (c0.rank == 13 && c1.rank == 1)
-		{
-			return true;
-		}*/
 
 		return false;
     }
