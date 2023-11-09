@@ -206,7 +206,6 @@ public class Golf: MonoBehaviour {
 		cd.transform.parent = layoutAnchor; //Update its transform parent
 
         Vector2 discardStagger = layout.discardPile.stagger;
-		Debug.Log("Discard stagger" + discardStagger.x);
 
         // Position this card in the discard pile
         cd.transform.localPosition = new Vector3(
@@ -217,7 +216,7 @@ public class Golf: MonoBehaviour {
 		cd.faceUp = true;
 		// Place it on top of the pile for sorting
 		cd.SetSortingLayerName(layout.discardPile.layerName);
-		cd.SetSortOrder(-100 + discardPile.Count);
+		cd.SetSortOrder(-100 - discardPile.Count);
 	}
 
 	void MoveToTarget(CardGolf cd)
